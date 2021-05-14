@@ -1,0 +1,27 @@
+{
+  "name": "leetube",
+  "version": "1.0.0",
+  "description": "Family video organizer.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ystime25/leetube.git"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node index.js"
+  },
+  "author": "Youn Seok Lee <ystime25@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ystime25/leetube/issues"
+  },
+  "homepage": "https://github.com/ystime25/leetube#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.2",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "nodemon": "^2.0.7"
+  }
+}
