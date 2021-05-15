@@ -2,7 +2,6 @@ extends base.pug
 include mixins/video
 
 block content 
-    h2 Leetube에 오신걸 환영합니다.
     ul
         each video in videos
             +video(video)
