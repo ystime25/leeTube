@@ -1,9 +1,11 @@
 import mongoose from "mongoose"
 
 mongoose.connect("mongodb://127.0.0.1:27017/leetube", { 
-    useNewUrlParser: true, useUnifiedTopology: true 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    useFindAndModify: false
 });
-
+//Remember to run 'sudo service mongodb start' before running mongo command
 const db = mongoose.connection;
 
 const handleOpen = () => console.log("✅ DB Connection Confirmed ");
