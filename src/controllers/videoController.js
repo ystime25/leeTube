@@ -1,20 +1,10 @@
 import Video from "../models/Video";
 
-/*
-console.log("start")
-Video.find({}, (error, videos) => {
-  if(error){
-    return res.render("server-error")
-  }
-  return res.render("home", { pageTitle: "Home", videos });
-});
-console.log("finished")
-*/
-
 export const home = async(req, res) => {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({createdAt: "desc"});
     return res.render("home", {pageTitle: "Home", videos });
 };
+
 export const watch = async(req,res) => {
     const { id } = req.params;
     const video = await Video.findById(id);
@@ -68,3 +58,21 @@ export const postUpload = async(req,res) => {
     }
 };
 
+export const deleteVideo = async (req,res) => {
+    const { id } = req.params;
+    await Video.findOneAndDelete(id);
+    return res.redirect("/");
+}
+
+export const search = async (req,res) => {
+    const { search_query } = req.query;
+    let videos = [];
+    if(search_query){
+        videos = await Video.find({
+            title: {
+                $regex: new RegExp(search_query, "i")
+                }
+        });
+    }
+    return res.render("search", {pageTitle: "Search", videos});
+};
