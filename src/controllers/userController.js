@@ -5,21 +5,21 @@ export const postSignUp = async(req,res) => {
     const { name, email, username, password, confirmPassword} = req.body;
     const pageTitle = "Create Account"
     if(password !== confirmPassword){
-        return res.render("signup", {
+        return res.status(400).render("signup", {
             pageTitle, 
             errorMessage: "The password do not match, confirm password again."
         });
     }
     const usernameExists = await User.exists({ username});
     if (usernameExists) {
-        return res.render("signup", {
+        return res.status(400).render("signup", {
             pageTitle, 
             errorMessage: "This Username is already used"
         });
     }
     const emailExists = await User.exists({ email });
     if (emailExists) {
-        return res.render("signup", {
+        return res.status(400).render("signup", {
             pageTitle, 
             errorMessage: "This Email is already used"
         });
