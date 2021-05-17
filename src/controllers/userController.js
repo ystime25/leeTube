@@ -56,7 +56,8 @@ export const postLogin = async(req,res) => {
             errorMessage: "You have the wrong password"
         });
     }
-    console.log("로그인 기능은 현재 만드는 중입니다.")
+    req.session.loggedIn = true;
+    req.session.user = user;
     return res.redirect("/");
 };
 
