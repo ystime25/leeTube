@@ -1,12 +1,12 @@
 import express from "express";
-import { getSignUp,postSignUp, login } from "../controllers/userController";
+import { getSignUp,postSignUp, getLogin, postLogin } from "../controllers/userController";
 import { home, search } from "../controllers/videoController";
 
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
 rootRouter.route("/signup").get(getSignUp).post(postSignUp);
-rootRouter.get("/login", login);
+rootRouter.route("/login").get(getLogin).post(postLogin);
 rootRouter.get("/results", search);
 
 
