@@ -2,7 +2,28 @@ import User from "../models/User";
 
 export const getSignUp = (req,res) => res.render("signup", {pageTitle: "Create Account"});
 export const postSignUp = async(req,res) => {
-    const { name, email, username, password} = req.body;
+    const { name, email, username, password, confirmPassword} = req.body;
+    const pageTitle = "Create Account"
+    if(password !== confirmPassword){
+        return res.render("signup", {
+            pageTitle, 
+            errorMessage: "The password do not match, confirm password again."
+        });
+    }
+    const usernameExists = await User.exists({ username});
+    if (usernameExists) {
+        return res.render("signup", {
+            pageTitle, 
+            errorMessage: "This Username is already used"
+        });
+    }
+    const emailExists = await User.exists({ email });
+    if (emailExists) {
+        return res.render("signup", {
+            pageTitle, 
+            errorMessage: "This Email is already used"
+        });
+    }
     await User.create({
         name, email, username, password
     });
