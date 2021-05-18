@@ -11,11 +11,9 @@ html(lang="ko")
                 ul 
                     li 
                         a(href="/") Home
-                    li 
-                        a(href="/videos/upload") Upload
-                    li 
-                        a(href="/results") Search
                     if loggedIn
+                        li 
+                            a(href="/videos/upload") Upload
                         li 
                             a(href="/users/edit") Edit Profile
                         li 
@@ -25,6 +23,8 @@ html(lang="ko")
                             a(href="/signup") Sign Up
                         li 
                             a(href="/login") Log In
+                    li 
+                        a(href="/results") Search
         main
             block content
     include partials/footer.pug 

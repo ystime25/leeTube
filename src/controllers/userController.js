@@ -145,8 +145,24 @@ export const getEdit = (req,res) => {
     return res.render("edit-profile",{pageTitle: "Edit Profile"});
 };
 
-export const postEdit = (req,res) => {
-    return res.render(edit-profile);
+export const postEdit = async(req,res) => {
+    const { 
+        session: {user: { _id }},
+        body: {name, email, username}
+    } = req;
+    const inspectUsername = await User.findOne({username});
+    const inspectEmail =await User.findOne({ email});
+    if (inspectUsername._id != _id || inspectEmail._id != _id) {
+        return res.render("edit-profile", { 
+            pageTitle: "Edit Profile",
+            errorMessage: "The Username/Email is already in use."
+        });
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+        _id, {name, email, username},{new: true}
+    );
+    req.session.user = updatedUser;
+    return res.render("edit-profile");
 };
 
 export const see = (req,res) => res.send("See User");
