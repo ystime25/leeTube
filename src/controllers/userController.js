@@ -39,7 +39,8 @@ export const postSignUp = async(req,res) => {
     }
 };
 
-export const getLogin = (req,res) => res.render("login", {pageTitle: "Log in"});
+export const getLogin = (req,res) => 
+    res.render("login", {pageTitle: "Log in"});
 
 export const postLogin = async(req,res) => {
     const { username, password } = req.body;
@@ -75,7 +76,7 @@ export const githubSocialLoginReq = (req, res) => {
     return res.redirect(githubAuthUrl);
 };
 
-export const githubSocialLoginRes =async(req,res) =>{
+export const githubSocialLoginRes =async(req,res) => {
     const baseUrl = "https://github.com/login/oauth/access_token";
     const config = {
         client_id: process.env.GH_CLIENT,
@@ -102,7 +103,6 @@ export const githubSocialLoginRes =async(req,res) =>{
                 }
             })
         ).json();
-        console.log(userData);
         const emailData = await (
             await fetch(`${apiUrl}/user/emails`, {
                 headers: {
@@ -116,7 +116,7 @@ export const githubSocialLoginRes =async(req,res) =>{
         if(!emailObj) {
             return res.redirect("/login");
         }
-        let user = await User.findOne({email: emailObj}.email);
+        let user = await User.findOne({email: emailObj.email});
         if (!user){
             user = await User.create({
                 name:userData.name,
@@ -124,7 +124,7 @@ export const githubSocialLoginRes =async(req,res) =>{
                 username:userData.login, 
                 password:"",
                 socialOnly:true,
-                avatarUrl: userData.avatarUrl
+                avatarUrl: userData.avatar_url
             });
         }
             req.session.loggedIn = true;
