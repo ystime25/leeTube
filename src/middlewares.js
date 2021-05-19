@@ -23,4 +23,10 @@ export const visitorsAccessMiddleware = (req, res, next) => {
     }
 };
 
-export const multerMiddleware = multer({dest: "uploads/"});
+export const multer4Avatar = multer({dest: "uploads/avatars/", limits:{
+    fileSize: 10485760
+}});
+
+export const multer4Video = multer({dest: "uploads/videos/", limits:{
+    fileSize: 209715200
+}});
