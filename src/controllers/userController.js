@@ -147,8 +147,9 @@ export const getEdit = (req,res) => {
 
 export const postEdit = async(req,res) => {
     const { 
-        session: {user: { _id }},
-        body: {name, email, username}
+        session: {user: { _id, avatarUrl }},
+        body: {name, email, username},
+        file
     } = req;
     const inspectUsername = await User.findOne({username});
     const inspectEmail =await User.findOne({ email});
@@ -159,10 +160,10 @@ export const postEdit = async(req,res) => {
         });
     }
     const updatedUser = await User.findByIdAndUpdate(
-        _id, {name, email, username},{new: true}
+        _id, {name, email, username, avatarUrl: file ? file.path : avatarUrl },{new: true}
     );
     req.session.user = updatedUser;
-    return res.render("edit-profile");
+    return res.render("users/edit-profile");
 };
 
 export const getChangePassword = (req,res) => {

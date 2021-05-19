@@ -1,7 +1,10 @@
 extends ../base.pug
 
 block content
-    form(method="POST")
+    img(src="/" + loggedInUser.avatarUrl , width="100px", height="100px")
+    form(method="POST", enctype="multipart/form-data")
+        lable(for="avatar") Avatar
+        input(type="file", id="avatar", name="avatar", accept="image/*")
         input(type="text", name="username", placeholder="Username", value=loggedInUser.username, required) 
         input(type="email", name="email", placeholder="Email", value=loggedInUser.email, required) 
         input(type="text", name="name", placeholder="Name", value=loggedInUser.name, required)

@@ -1,3 +1,5 @@
+import multer from "multer";
+
 export const localsMiddleware = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.siteName = "Leetube";
@@ -20,3 +22,5 @@ export const visitorsAccessMiddleware = (req, res, next) => {
         return res.redirect("/");
     }
 };
+
+export const multerMiddleware = multer({dest: "uploads/"});
