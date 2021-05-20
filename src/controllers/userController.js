@@ -164,7 +164,7 @@ export const postEdit = async(req,res) => {
         _id, {name, email, username, avatarUrl: file ? file.path : avatarUrl },{new: true}
     );
     req.session.user = updatedUser;
-    return res.render("users/edit-profile");
+    return res.render("users/edit-profile",{pageTitle: "Edit Profile"});
 };
 
 export const getChangePassword = (req,res) => {
