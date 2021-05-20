@@ -1,1 +1,3 @@
-alert(" hi I am webpack")
+import "../scss/styles.scss";
+
+console.log("hi I am webpack");
