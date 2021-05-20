@@ -7,8 +7,8 @@
     "url": "git+https://github.com/ystime25/leetube.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
-    "assets": "webpack --config webpack.config.js"
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
   },
   "author": "Youn Seok Lee <ystime25@gmail.com>",
   "license": "MIT",
