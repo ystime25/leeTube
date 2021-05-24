@@ -1,3 +1,3 @@
 import "../scss/styles.scss";
 
-console.log("hi I am webpack");
+console.log("hi I main");
