@@ -1,0 +1,29 @@
+.empty__message {
+  margin-bottom: 50px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.video-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.other-option {
+  text-align: center;
+  margin-top: 40px;
+  a {
+    font-weight: 600;
+    padding: 1px 4px;
+    background-color: #2ea043;
+    border-radius: 3px;
+    align-items: center;
+  }
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}

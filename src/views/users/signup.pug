@@ -9,9 +9,10 @@ block content
         input(type="text", name="username", placeholder="Username", required) 
         input(type="password", name="password", placeholder="Password", required)
         input(type="password", name="confirmPassword", placeholder="Confirm Password", required)
-        input(type="submit", value="Sign Up") 
-    hr
-    div
+        input(type="submit", value="Sign Up")
+        hr
+        include ../partials/social-login
+    div.other-option
         span If you have and account, 
-        a(href="/login") Log in  
+        a(href="/login") Login  
                
