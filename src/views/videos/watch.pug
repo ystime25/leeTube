@@ -1,7 +1,7 @@
 extends ../base.pug
 
-block content 
-    div#videoContainer(data-id=video._id)
+block content
+    div#videoContainer
         video(src="/" + video.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
@@ -34,5 +34,5 @@ block content
             br
             a(href=`${video.id}/delete`) Delete Video &rarr;
 
-    block scripts 
-        script(src="/static/js/videoPlayer.js")
+block scripts 
+    script(src="/static/js/videoPlayer.js")

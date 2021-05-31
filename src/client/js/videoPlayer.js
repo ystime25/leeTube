@@ -1,5 +1,3 @@
-const { default: fetch } = require("node-fetch");
-
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const playBtnIcon = playBtn.querySelector("i");
@@ -18,6 +16,9 @@ let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
+const changePlayStatus = () => {
+  playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
+};
 
 const handlePlayClick = (e) => {
   if (video.paused) {
@@ -25,10 +26,17 @@ const handlePlayClick = (e) => {
   } else {
     video.pause();
   }
-  playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
+  changePlayStatus();
 };
 
-playBtnIcon.onclick = handlePlayClick;
+const handleVideoClick = (e) => {
+  if (video.paused) {
+    video.play();
+  } else {
+    video.pause();
+  }
+  changePlayStatus();
+};
 
 const handleMuteClick = (e) => {
   if (video.muted) {
@@ -41,8 +49,6 @@ const handleMuteClick = (e) => {
     : "fas fa-volume-up";
   volumeRange.value = video.muted ? 0 : volumeValue;
 };
-
-muteBtnIcon.onclick = handleMuteClick;
 
 const handleVolumeChange = (event) => {
   const {
@@ -87,8 +93,6 @@ const handleFullscreen = () => {
   }
 };
 
-fullScreenBtnIcon = handleFullscreen;
-
 const hideControls = () => videoControls.classList.remove("showing");
 
 const handleMouseMove = () => {
@@ -109,17 +113,16 @@ const handleMouseLeave = () => {
 };
 
 const handleShortcuts = (event) => {
-    const { key } = event;
-    if(key == "Space") {
-        handlePlayClick();
-    }
-};
-
-const handleEnded = () => {
-  const {id} = videoContainer.dataset;
-  fetch(`/api/videos/${id}/view`, {
-    method: "POST"
-  });
+  const { code: key } = event;
+  if (key == "Space") {
+    handlePlayClick();
+  }
+  if (key == "KeyM") {
+    handleMuteClick();
+  }
+  if (key == "KeyF") {
+    handleFullscreen();
+  }
 };
 
 playBtn.addEventListener("click", handlePlayClick);
@@ -131,5 +134,5 @@ videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
-window.addEventListener("keypress", handleShortcuts);
-video.addEventListener("ended",handleEnded);
+document.addEventListener("keyup", handleShortcuts)
+video.addEventListener("click", handleVideoClick);
