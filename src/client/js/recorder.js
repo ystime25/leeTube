@@ -1,42 +1,50 @@
-const { async } = require("regenerator-runtime");
-
-const startREC = document.getElementById("startREC");
+const recBtn = document.getElementById("recBtn");
 const video = document.getElementById("preview");
 
 let stream;
+let recorder;
+let recordedVideo;
 
-const handleStop = () => {
-    startREC.innerText = "Start Recording";
-    startREC.removeEventListener("click", handleStop);
-    startREC.addEventListener("click", handleStart);
-}
+const handleRECstart = () => {
+  recBtn.innerText = "Stop Recording";
+  recBtn.removeEventListener("click", handleRECstart);
+  recBtn.addEventListener("click", handleRECstop);
+  //
+  recorder = new MediaRecorder(stream, { MimeType: "video/webm" });
+  recorder.ondataavailable = (event) => {
+    recordedVideo = URL.createObjectURL(event.data);
+    video.srcObject = null;
+    video.src = recordedVideo;
+    video.loop = true;
+    video.play();
+  };
+  recorder.start();
+};
 
-const handleStart  = () => {
-    startREC.innerText = "Stop Recording";
-    startREC.removeEventListener("click", handleStart);
-    startREC.addEventListener("click", handleStop);
-    const recorder = new MediaRecorder(stream);
-    recorder.ondataavailable = (e) =>{
-        console.log("record done");
-        console.log(e);
-        console.log(e.data);
-    };
-    console.log(recorder);
-    recorder.start();
-    console.log(recorder);
-    setTimeout(() => {
-        recorder.stop();
-    }, 10000);   
+const handleRECstop = () => {
+  recBtn.innerText = "Download Recording";
+  recBtn.removeEventListener("click", handleRECstop);
+  recBtn.addEventListener("click", handleRECDownload);
+  recorder.stop();
+};
+
+const handleRECDownload = () => {
+  const downloadLink = document.createElement("a");
+  downloadLink.href = recordedVideo;
+  downloadLink.download = "녹화영상.webm";
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
 };
 
 const init = async () => {
-    stream = await navigator.mediaDevices.getUserMedia({
-        audio:true, video:true
-    });
-    video.srcObject = stream;
-    video.play();
+  stream = await navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: { width: 400, height: 300 },
+  });
+  video.srcObject = stream;
+  video.play();
 };
 
 init();
 
-startREC.addEventListener("click", handleStart);
+recBtn.addEventListener("click", handleRECstart);
