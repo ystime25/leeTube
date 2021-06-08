@@ -1,9 +1,13 @@
 #recControls {
   display: flex;
   flex-direction: column;
-  max-width: 420px;
+  max-width: 450px;
   margin: 0 auto;
   padding-bottom: 15px;
+}
+
+video {
+  max-width: 100%;
 }
 
 #preview {
