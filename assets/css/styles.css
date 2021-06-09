@@ -265,6 +265,7 @@ input[type=submit],
   font-size: 16px;
   color: white;
   width: 90%;
+  text-align: center;
 }
 
 .social__btn {
@@ -420,6 +421,7 @@ hr {
   max-width: 450px;
   margin: 0 auto;
   padding-bottom: 15px;
+  text-align: center;
 }
 
 video {
@@ -446,4 +448,36 @@ main {
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
+}
+
+@keyframes goAway {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+.message {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 200px;
+  padding: 10px 20px;
+  border-radius: 1px;
+  text-align: center;
+  animation: goAway 0.5s ease-in-out forwards;
+  animation-delay: 3s;
+}
+.message.error {
+  background-color: tomato;
+  color: white;
+}
+.message.success {
+  background-color: #2ea043;
+  color: white;
 }

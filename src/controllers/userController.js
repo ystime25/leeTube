@@ -66,6 +66,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
+  req.flash("success", "Welcome to Leetube");
   return res.redirect("/");
 };
 
@@ -135,6 +136,7 @@ export const githubSocialLoginRes = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+    req.flash("success", "Welcome to Leetube");
     return res.redirect("/");
   } else {
     return res.redirect("/login");
@@ -177,6 +179,7 @@ export const postEdit = async (req, res) => {
 
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash("error", "Can't Change Password");
     return res.redirect("/");
   }
   return res.render("users/change-password", { pageTitle: "Change Password" });
@@ -205,6 +208,7 @@ export const postChangePassword = async (req, res) => {
   }
   user.password = newPW;
   await user.save();
+  req.flash("info", "Password updated");
   return res.redirect("/users/logout");
 };
 
