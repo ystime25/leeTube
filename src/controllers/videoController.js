@@ -1,5 +1,7 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
+import { async } from "regenerator-runtime";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
@@ -128,4 +130,24 @@ export const registerView = async (req, res) => {
   video.meta.views = video.meta.views + 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+export const createComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { text },
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    video: id,
+  });
+  return res.sendStatus(201);
 };

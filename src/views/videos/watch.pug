@@ -19,13 +19,10 @@ block content
             div
                 span#fullScreen
                     i.fas.fa-expand
-    //-
-        div 
-            each hashtag in video.hashtags
-                    a(href=`/results?search_query=${hashtag}`)=hashtag
-            p=video.title
-            small=video.createdAt
-        hr
+    div#videoInfo 
+        p=video.title
+        small=video.createdAt
+        hr      
         div 
             a(href=`/users/${video.owner._id}`)=video.owner.username
             p=video.description
@@ -33,6 +30,14 @@ block content
             a(href=`${video.id}/edit`) Edit Video &rarr;
             br
             a(href=`${video.id}/delete`) Delete Video &rarr;
+        hr
+    if loggedIn
+        div.video__comments 
+            form.video__comment-form#commentForm
+                textarea(cols="30", rows="10", placeholder="Write your comment here...")
+                button Add Comment 
 
 block scripts 
     script(src="/static/js/videoPlayer.js")
+    if loggedIn
+        script(src="/static/js/commentSection.js")

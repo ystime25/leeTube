@@ -14,14 +14,14 @@ export const postSignUp = async (req, res) => {
       errorMessage: "The password do not match, confirm password again.",
     });
   }
-  const usernameExists = await User.findById(username);
+  const usernameExists = await User.findOne(username);
   if (usernameExists) {
     return res.status(400).render("users/signup", {
       pageTitle,
       errorMessage: "This Username is already used",
     });
   }
-  const emailExists = await User.findById(email);
+  const emailExists = await User.findOne(email);
   if (emailExists) {
     return res.status(400).render("users/signup", {
       pageTitle,
