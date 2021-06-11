@@ -1,3 +1,5 @@
+import { async } from "regenerator-runtime";
+
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 
@@ -11,7 +13,7 @@ const handleSubmit = (event) => {
   }
   fetch(`/api/videos/${videoId}/comment`, {
     method: "POST",
-    header: {
+    headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ text }),
