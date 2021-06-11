@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   avatarUrl: { type: String },
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
-  commments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 userSchema.pre("save", async function () {
