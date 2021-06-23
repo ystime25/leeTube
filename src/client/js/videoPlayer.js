@@ -116,13 +116,13 @@ const handleMouseLeave = () => {
 
 const handleShortcuts = (event) => {
   const { code: key } = event;
-  if (key == "Space") {
+  if (key === "Space") {
     handlePlayClick();
   }
-  if (key == "KeyM") {
+  if (key === "KeyM") {
     handleMuteClick();
   }
-  if (key == "KeyF") {
+  if (key === "KeyF") {
     handleFullscreen();
   }
 };
@@ -137,7 +137,7 @@ const handleEnded = () => {
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadeddata", handleLoadedMetadata);
+video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
