@@ -6,7 +6,7 @@ block content
         if loggedInUser.avatarUrl.includes("github")
             img.avatar(src=loggedInUser.avatarUrl)
         else
-            img.avatar(src="/" + loggedInUser.avatarUrl)
+            img.avatar(src=loggedInUser.avatarUrl)
         lable(for="avatar") Change Avatar
         input(type="file", id="avatar", name="avatar", accept="image/*")
         input(type="text", name="username", placeholder="Username", value=loggedInUser.username, required) 
