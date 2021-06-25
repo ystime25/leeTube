@@ -2,6 +2,8 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 
+const productionEnv = process.env.NODE_ENV === "production";
+
 const s3 = new aws.S3({
   credentials: {
     accessKeyId: process.env.AWS_ID,
@@ -9,9 +11,15 @@ const s3 = new aws.S3({
   },
 });
 
-const multer4S3 = multerS3({
+const s3Image = multerS3({
   s3: s3,
-  bucket: "leetubeproject",
+  bucket: "leetubeproject/images",
+  acl: "public-read",
+});
+
+const s3Video = multerS3({
+  s3: s3,
+  bucket: "leetubeproject/videos",
   acl: "public-read",
 });
 
@@ -19,6 +27,7 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.siteName = "Leetube";
   res.locals.loggedInUser = req.session.user || {};
+  res.locals.productionEnv = productionEnv;
   next();
 };
 
@@ -45,7 +54,7 @@ export const multer4Avatar = multer({
   limits: {
     fileSize: 10485760,
   },
-  storage: multer4S3,
+  storage: productionEnv ? s3Image : undefined,
 });
 
 export const multer4Video = multer({
@@ -53,5 +62,5 @@ export const multer4Video = multer({
   limits: {
     fileSize: 209715200,
   },
-  storage: multer4S3,
+  storage: productionEnv ? s3Video : undefined,
 });

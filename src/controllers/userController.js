@@ -168,9 +168,17 @@ export const postEdit = async (req, res) => {
       errorMessage: "The Username/Email is already in use.",
     });
   }
+
+  const productionEnv = process.env.NODE_ENV === "production";
+
   const updatedUser = await User.findByIdAndUpdate(
     _id,
-    { name, email, username, avatarUrl: file ? file.location : avatarUrl },
+    {
+      name,
+      email,
+      username,
+      avatarUrl: file ? (productionEnv ? file.location : file.path) : avatarUrl,
+    },
     { new: true }
   );
   req.session.user = updatedUser;
