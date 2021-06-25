@@ -3,12 +3,11 @@ include ../mixins/video
 
 block content
     div.profile__data
-        if loggedInUser.socialOnly
+        if loggedInUser.avatarUrl.includes("github")
             img.avatar(src=loggedInUser.avatarUrl)
-            h3=user.username
         else
             img.avatar(src="/" + loggedInUser.avatarUrl)
-            h3=user.username
+        h3=user.username
     div.video-grid  
         each video in user.videos
             +video(video)
